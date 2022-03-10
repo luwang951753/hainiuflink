@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>testwordcount</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <properties>
+        <encoding>UTF-8</encoding>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <java.version>1.8</java.version>
+        <scala.version>2.11</scala.version>
+<!--        <flink.version>1.12.0</flink.version>-->
+        <flink.version>1.9.3</flink.version>
+<!--        <flink.version>1.14.2</flink.version>-->
+        <fastjson.version>1.2.72</fastjson.version>
+        <hadoop.version>2.7.3</hadoop.version>
+<!--        <parquet.version>1.10.0</parquet.version>-->
+        <parquet.version>1.11.0</parquet.version>
+        <log4j.version>1.2.17</log4j.version>
+        <slf4j.version>1.7.7</slf4j.version>
+        <redis.version>2.9.0</redis.version>
+        <mysql.version>5.1.35</mysql.version>
+
+        <!-- compile 本地模式--> <!-- provided 集群模型 -->
+
+        <!-- 本地模式 -->
+        <project.build.scope>compile</project.build.scope>
+        <project.build.scope.cluster>compile</project.build.scope.cluster>
+
+        <!-- provided 集群模式 -->
+<!--        <project.build.scope>provided</project.build.scope>-->
+<!--        <project.build.scope.cluster>compile</project.build.scope.cluster>-->
+<!--        <project.build.scope.cluster>provided</project.build.scope.cluster>-->
+
+
+        <mainClass>com.zkdn.warehouse.dwd.Driver</mainClass>
+
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>${project.build.scope}</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+            <scope>${project.build.scope}</scope>
+        </dependency>
+        <!-- flink的hadoop兼容 -->
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-client</artifactId>
+            <version>${hadoop.version}</version>
+            <scope>${project.build.scope.cluster}</scope>
+        </dependency>
+        <!-- flink的hadoop兼容 -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-hadoop-compatibility_${scala.version}</artifactId>
+            <version>${flink.version}</version>
+            <scope>${project.build.scope.cluster}</scope>
+        </dependency>
+        <!-- flink的java的api -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-java</artifactId>
+            <version>${flink.version}</version>
+            <scope>${project.build.scope}</scope>
+        </dependency>
+        <!-- flink streaming的java的api -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-streaming-java_${scala.version}</artifactId>
+            <version>${flink.version}</version>
+            <scope>${project.build.scope}</scope>
+        </dependency>
+        <!-- flink的scala的api -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-scala_${scala.version}</artifactId>
+            <version>${flink.version}</version>
+            <scope>${project.build.scope.cluster}</scope>
+        </dependency>
+        <!-- flink streaming的scala的api -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-streaming-scala_${scala.version}</artifactId>
+            <version>${flink.version}</version>
+            <scope>${project.build.scope.cluster}</scope>
+        </dependency>
+        <!-- flink运行时的webUI -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-runtime-web_${scala.version}</artifactId>
+            <version>${flink.version}</version>
+            <scope>${project.build.scope.cluster}</scope>
+        </dependency>
+        <!-- 使用rocksdb保存flink的state -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-statebackend-rocksdb_${scala.version}</artifactId>
+            <version>${flink.version}</version>
+            <scope>${project.build.scope.cluster}</scope>
+        </dependency>
+        <!-- flink操作hbase -->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.flink</groupId>-->
+<!--            <artifactId>flink-hbase_${scala.version}</artifactId>-->
+<!--            <version>${flink.version}</version>-->
+<!--            <scope>${project.build.scope.cluster}</scope>-->
+<!--        </dependency>-->
+        <!-- flink操作es -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-elasticsearch5_${scala.version}</artifactId>
+            <version>${flink.version}</version>
+            <scope>${project.build.scope.cluster}</scope>
+        </dependency>
+        <!-- flink 的kafka -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-kafka-0.10_${scala.version}</artifactId>
+            <version>${flink.version}</version>
+<!--            <version>1.11.6</version>-->
+            <scope>${project.build.scope.cluster}</scope>
+        </dependency>
+
+
+        <!-- flink 写文件到HDFS -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-filesystem_${scala.version}</artifactId>
+            <version>${flink.version}</version>
+<!--            <version>1.11.6</version>-->
+            <scope>${project.build.scope.cluster}</scope>
+        </dependency>
+        <!-- mysql连接驱动 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
+            <scope>${project.build.scope.cluster}</scope>
+        </dependency>
+        <!-- redis连接 -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${redis.version}</version>
+            <scope>${project.build.scope.cluster}</scope>
+        </dependency>
+        <!-- flink操作parquet文件格式 -->
+        <dependency>
+            <groupId>org.apache.parquet</groupId>
+            <artifactId>parquet-avro</artifactId>
+            <version>${parquet.version}</version>
+            <scope>${project.build.scope.cluster}</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.parquet</groupId>
+            <artifactId>parquet-hadoop</artifactId>
+            <version>${parquet.version}</version>
+            <scope>${project.build.scope.cluster}</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-parquet_${scala.version}</artifactId>
+            <version>${flink.version}</version>
+            <scope>${project.build.scope.cluster}</scope>
+        </dependency>
+        <!-- json操作 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+            <scope>${project.build.scope.cluster}</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.2</version>
+            <scope>${project.build.scope.cluster}</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-clients_${scala.version}</artifactId>
+            <version>${flink.version}</version>
+            <scope>${project.build.scope}</scope>
+        </dependency>
+
+        <!-- kafka -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-table-api-java-bridge_${scala.version}</artifactId>
+            <version>${flink.version}</version>
+            <scope>${project.build.scope.cluster}</scope>
+        </dependency>
+
+
+
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-sql-connector-kafka_${scala.version}</artifactId>
+            <version>${flink.version}</version>
+            <scope>${project.build.scope.cluster}</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-kafka_2.12</artifactId>
+            <version>${flink.version}</version>
+            <scope>${project.build.scope.cluster}</scope>
+        </dependency>
+
+        <!-- blink执行计划,1.11+默认的-->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-table-planner-blink_${scala.version}</artifactId>
+<!--            <version>1.11.6</version>-->
+            <version>${flink.version}</version>
+            <scope>${project.build.scope.cluster}</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-table-common</artifactId>
+            <version>${flink.version}</version>
+            <scope>${project.build.scope.cluster}</scope>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.projectlombok</groupId>-->
+<!--            <artifactId>lombok</artifactId>-->
+<!--            <version>1.18.2</version>-->
+<!--            <scope>${project.build.scope}</scope>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.flink</groupId>-->
+<!--            <artifactId>flink-json</artifactId>-->
+<!--            <version>${flink.version}</version>-->
+<!--            <scope>${project.build.scope}</scope>-->
+<!--        </dependency>-->
+
+<!--        <dependency>-->
+<!--            <groupId>org.apache.flink</groupId>-->
+<!--            <artifactId>flink-runtime-web_${scala.version}</artifactId>-->
+<!--            <version>${flink.version}</version>-->
+<!--            <scope>${project.build.scope}</scope>-->
+<!--        </dependency>-->
+
+<!--        <dependency>-->
+<!--            <groupId>org.apache.flink</groupId>-->
+<!--            <artifactId>flink-shaded-hadoop-2-uber</artifactId>-->
+<!--            <version>2.7.5-10.0</version>-->
+<!--            <scope>${project.build.scope}</scope>-->
+<!--        </dependency>-->
+
+<!--        <dependency>-->
+<!--            <groupId>org.apache.hadoop</groupId>-->
+<!--            <artifactId>hadoop-client</artifactId>-->
+<!--            <version>${hadoop.version}</version>-->
+<!--            <scope>${project.build.scope}</scope>-->
+<!--        </dependency>-->
+
+    </dependencies>
+    <build>
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/assembly/assembly.xml</descriptor>
+                    </descriptors>
+                    <archive>
+                        <manifest>
+                            <mainClass>${mainClass}</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- 编译插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <!--<encoding>${project.build.sourceEncoding}</encoding>-->
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.18.1</version>
+                <configuration>
+                    <useFile>false</useFile>
+                    <disableXmlReport>true</disableXmlReport>
+                    <includes>
+                        <include>**/*Test.*</include>
+                        <include>**/*Suite.*</include>
+                    </includes>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+
+
+</project>
